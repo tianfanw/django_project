@@ -1,0 +1,11 @@
+<p>This is index page</p>
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  {{ login_form.as_p }}
+  <input type="submit" value="Login">
+</form>
+<form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  {{ register_form.as_p }}
+  <input type="submit" value="Sign up">
+</form>
