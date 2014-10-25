@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 import logging
 logger = logging.getLogger(__name__)
+from apps.query.forms import SearchForm
 
 # Create your views here.
 def index(request):
@@ -17,4 +18,5 @@ def index(request):
 
 @login_required
 def home(request):
-  return render(request, 'home.html')
+  form = SearchForm()
+  return render(request, 'home.html', {'form': form})
