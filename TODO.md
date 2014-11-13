@@ -1,5 +1,6 @@
-1. Change the project structure to simplify
-2. make a base template
-3. make the result display look nicer
-4. create model for events
-5. store events in database
+# create model for events
+# store events in database
+# display proper attributes of event
+
+More work on form format/validation
+*Decorate login/sign up page
