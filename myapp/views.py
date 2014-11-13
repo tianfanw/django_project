@@ -12,6 +12,7 @@ import logging
 import time
 import requests
 import json
+from config import CONFIG
 
 # Create your views here.
 def login(request):
@@ -71,7 +72,7 @@ def getEvents(query):
 
   headers = {
     'Accept-Encoding'  : 'application/json',
-    'Authorization' : 'Bearer kgTVGryTSxTGKDgwSWdh5u6cnqca'
+    'Authorization' : 'Bearer ' + CONFIG['stubhub']['application_token']
   }
   
   req = requests.get(base+resource+params, headers=headers, verify=False)
