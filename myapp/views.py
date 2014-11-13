@@ -16,7 +16,7 @@ import json
 # Create your views here.
 def login(request):
   if request.user.is_authenticated():
-    return redirect('home')
+    return redirect('index')
   else:
     if request.method == 'POST':
       form = AuthenticationForm(data=request.POST)
@@ -33,7 +33,7 @@ def login(request):
 
 def register(request):
   if request.user.is_authenticated():
-    return redirect('home')
+    return redirect('index')
   else:
     if request.method == 'POST':
       form = UserCreationForm(data=request.POST)
@@ -52,16 +52,11 @@ def register(request):
 def index(request):
   if request.user.is_authenticated():
     # queryForm = QueryForm()
-    return redirect('home')
+    return render(request, 'index.html')
   else:
     login_form = AuthenticationForm()
     register_form = UserCreationForm()
     return render(request, 'index.html', {'login_form': login_form, 'register_form': register_form})
-
-@login_required
-def home(request):
-  return render(request, 'home.html')
-  
 
 def getEvents(query):
   base = 'https://api.stubhubsandbox.com'

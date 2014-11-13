@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     url(r'^login$', 'myapp.views.login', name='login'),
     url(r'^register$', 'myapp.views.register', name='register'),
     url(r'^logout$', logout, kwargs={'next_page':'/'}, name="logout"),
-    url(r'^home$', 'myapp.views.home', name='home'),
     url(r'^search', 'myapp.views.search', name='search'),
     # url(r'^admin/', include(admin.site.urls)),
 )

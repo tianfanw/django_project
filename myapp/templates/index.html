@@ -1,11 +1,39 @@
-<p>This is index page</p>
+<p>This is home page</p>
+{% if user.is_authenticated %}
+<p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+<a href="{% url 'logout' %}"> Logout</a>
+<form action="{% url 'search' %}" method="get">
+  <label for="id_grouping"> Grouping: </label>
+    <input type="text" name="groupingName" id="id_grouping" value="NFL">
+  </p>
+  <p>
+    <label for="id_city"> City: </label>
+    <input type="text" name="city" id="id_city" value="East Rutherford">
+  </p>
+  <p>
+    <label for="id_team"> Team: </label>
+    <input type="text" name="performerName" id="id_team" value="Giants">
+  </p>
+  <p>
+    <label for="id_venue"> Venue: </label>
+    <input type="text" name="venue" id="id_venue" value="Metlife Stadium">
+  </p>
+  <p>
+    <label for="id_date"> Date: </label>
+    <input type="text" name="date" id="id_date" value="2014-12-15">
+  </p>
+  <input type="submit" value="Search">
+</form>
+<p> some other stuff shown in home page </p>
+{% else %}
 <form action="{% url 'login' %}" method="post">
   {% csrf_token %}
   {{ login_form.as_p }}
   <input type="submit" value="Login">
 </form>
-<form action="{% url 'logout' %}" method="post">
+<form action="{% url 'register' %}" method="post">
   {% csrf_token %}
   {{ register_form.as_p }}
   <input type="submit" value="Sign up">
 </form>
+{% endif %}
