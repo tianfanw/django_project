@@ -1,9 +1,0 @@
-<p>This is home page</p>
-<p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-<a href="{% url 'logout' %}"> Logout</a>
-<form action="{% url 'search' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Search">
-</form>
-<p> some other stuff shown in home page </p>

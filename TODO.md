@@ -1,4 +1,5 @@
-Mock up Query and Output requests in home (could be in the same page, using iframe?)
-Intergrate with scripts
-transfer csv to database
-Decorate htmls, make base templates, css, etc.
+1. Change the project structure to simplify
+2. make a base template
+3. make the result display look nicer
+4. create model for events
+5. store events in database

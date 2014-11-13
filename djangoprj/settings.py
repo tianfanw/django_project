@@ -56,9 +56,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.home',
-    'apps.account',
-    'apps.query',
+    # 'apps.home',
+    # 'apps.account',
+    # 'apps.query',
+    'myapp',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,5 +111,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL  = '/home'
-LOGIN_URL           = '/account/login'
-LOGOUT_URL          = '/account/logout'
+LOGIN_URL           = '/login'
+LOGOUT_URL          = '/logout'

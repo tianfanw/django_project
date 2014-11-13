@@ -1,0 +1,40 @@
+<p>This is search page</p>
+<p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+<a href="{% url 'logout' %}"> Logout</a>
+<a href="{% url 'home' %}"> Home </a>
+<form action="{% url 'search' %}" method="get">
+  <p>
+    <label for="id_grouping"> Grouping: </label>
+    <input type="text" name="groupingName" id="id_grouping" value="NFL">
+  </p>
+  <p>
+    <label for="id_city"> City: </label>
+    <input type="text" name="city" id="id_city" value="East Rutherford">
+  </p>
+  <p>
+    <label for="id_team"> Team: </label>
+    <input type="text" name="performerName" id="id_team" value="Giants">
+  </p>
+  <p>
+    <label for="id_venue"> Venue: </label>
+    <input type="text" name="venue" id="id_venue" value="Metlife Stadium">
+  </p>
+  <p>
+    <label for="id_date"> Date: </label>
+    <input type="text" name="date" id="id_date" value="2014-12-15">
+  </p>
+  <input type="submit" value="Search">
+</form>
+{% if result %}
+  {% if result.error %}
+    <p>{{ result.error }}</p>
+  {% elif result.events %}
+    <p id="eventlist">Results are:</p>
+    {% for event in result.events %}
+      <h2>EVENT:</h2>
+      {% for key, value in event.iteritems %}
+        <p>{{key}} : {{value}} </p>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
