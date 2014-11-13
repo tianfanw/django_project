@@ -1,40 +1,43 @@
-<p>This is search page</p>
-<p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-<a href="{% url 'logout' %}"> Logout</a>
-<a href="{% url 'index' %}"> Home </a>
-<form action="{% url 'search' %}" method="get">
-  <p>
-    <label for="id_grouping"> Grouping: </label>
-    <input type="text" name="groupingName" id="id_grouping" value="NFL">
-  </p>
-  <p>
-    <label for="id_city"> City: </label>
-    <input type="text" name="city" id="id_city" value="East Rutherford">
-  </p>
-  <p>
-    <label for="id_team"> Team: </label>
-    <input type="text" name="performerName" id="id_team" value="Giants">
-  </p>
-  <p>
-    <label for="id_venue"> Venue: </label>
-    <input type="text" name="venue" id="id_venue" value="Metlife Stadium">
-  </p>
-  <p>
-    <label for="id_date"> Date: </label>
-    <input type="text" name="date" id="id_date" value="2014-12-15">
-  </p>
-  <input type="submit" value="Search">
-</form>
-{% if result %}
-  {% if result.error %}
-    <p>{{ result.error }}</p>
-  {% elif result.events %}
-    <p id="eventlist">Results are:</p>
-    {% for event in result.events %}
-      <h2>EVENT:</h2>
-      {% for key, value in event.iteritems %}
-        <p>{{key}} : {{value}} </p>
-      {% endfor %}
-    {% endfor %}
+{% extends "index.html" %}
+
+{% block stylesheet %}
+  {{ block.super }}
+  <link rel="stylesheet" href="/static/css/search.css">
+{% endblock %}
+
+{% block content %}
+  <p>Result</p>
+  {% if result %}
+    {% if result.error %}
+      <p>{{ result.error }}</p>
+    {% elif result.events %}
+      <div class="results">
+        {% for event in result.events %}
+          <div id={{ event.id }}>
+            {% with event.id|stringformat:"s" as str_id %}
+              <a class="event-title" data-toggle="modal" data-target={{ "#detail"|add:str_id }}>{{ event.title }}</a>
+              <div class="modal fade" id={{ "detail"|add:str_id }} tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <h4 class="modal-title" id="eventModalLabel">{{ event.title }}</h4>
+                      <div>
+                        {% for key, value in event.iteritems %}
+                          <p>{{key}} : {{value}} </p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
   {% endif %}
-{% endif %}
+
+  
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+header.navbar{
+  background-color: #eee;
+  height: 60px;
+}
+
+a.brand{
+  font-size: 40px;
+}
+
+div.user-info{
+  float: right;
+  height: 50px;
+  padding: 15px 15px;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+div.user-info a{
+  margin-right: 30px;
+  text-decoration: none;
+}

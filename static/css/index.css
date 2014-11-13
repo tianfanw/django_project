@@ -1,0 +1,35 @@
+div.search-bar {
+  background-color: #ccf;
+  border-radius: 7px;
+}
+
+div.search-title {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+div.search-form-wrap {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+#search-form input {
+  width: 100%;
+}
+
+#search-form div {
+  margin-bottom: 10px;
+}
+
+#search-form p {
+  height: 10px;
+}
+
+#search-button {
+  float: right;
+  margin: 10px 0px;
+}
+
+div.content {
+  padding-left: 40px;
+}

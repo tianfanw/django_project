@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <title>Myapp</title>
+    {% endblock %}
+    
+    {% block stylesheet %}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/static/css/base.css">
+    {% endblock %}
+    
+    {% block javascript %}
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    {% endblock %}
+  </head>
+  <body>
+    {% block navigation %}
+      <header class="navbar">
+        <div class="container">
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand brand">Myapp</a>
+          </div>
+          <div class="navbar-right user-info">
+            {% if user.is_authenticated %}
+              <a href="">Welcome, {{ user.username }}.</a>
+              <a href="{% url 'logout' %}"> Logout</a>            
+            {% else %}
+              <a href="{% url 'login' %}"> Login</a>
+              <a href="{% url 'register' %}"> Sign up</a>
+            {% endif %}
+        </div>
+        <!-- {% if user.is_authenticated %}
+          <a>Welcome, {{ user.username }}. Thanks for logging in.</a>
+          <a href="{% url 'logout' %}"> Logout</a>
+        {% else %}
+          <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <input type="submit" value="Login">
+          </form>
+          <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <input type="submit" value="Sign up">
+          </form>
+        {% endif %} -->
+      </header>
+
+    {% endblock %}
+
+    <div class="container">
+      {% block body %}
+      {% endblock %}
+    </div>
+
+    </body>
+</html>

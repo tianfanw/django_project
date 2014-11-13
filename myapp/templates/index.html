@@ -1,39 +1,58 @@
-<p>This is home page</p>
-{% if user.is_authenticated %}
-<p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-<a href="{% url 'logout' %}"> Logout</a>
-<form action="{% url 'search' %}" method="get">
-  <label for="id_grouping"> Grouping: </label>
-    <input type="text" name="groupingName" id="id_grouping" value="NFL">
-  </p>
-  <p>
-    <label for="id_city"> City: </label>
-    <input type="text" name="city" id="id_city" value="East Rutherford">
-  </p>
-  <p>
-    <label for="id_team"> Team: </label>
-    <input type="text" name="performerName" id="id_team" value="Giants">
-  </p>
-  <p>
-    <label for="id_venue"> Venue: </label>
-    <input type="text" name="venue" id="id_venue" value="Metlife Stadium">
-  </p>
-  <p>
-    <label for="id_date"> Date: </label>
-    <input type="text" name="date" id="id_date" value="2014-12-15">
-  </p>
-  <input type="submit" value="Search">
-</form>
-<p> some other stuff shown in home page </p>
-{% else %}
-<form action="{% url 'login' %}" method="post">
-  {% csrf_token %}
-  {{ login_form.as_p }}
-  <input type="submit" value="Login">
-</form>
-<form action="{% url 'register' %}" method="post">
-  {% csrf_token %}
-  {{ register_form.as_p }}
-  <input type="submit" value="Sign up">
-</form>
-{% endif %}
+{% extends "base.html" %}
+
+{% block stylesheet %}
+  {{ block.super }}
+  <link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-3 search-bar">
+      {% block search %}
+      <div class="search-title">
+        <p>Search for tickets:</p>
+      </div>
+      <div class="search-form-wrap">
+          <form id="search-form" action="{% url 'search' %}" method="get">
+            <div>
+              <p>
+                <label for="id_grouping"> Grouping: </label>
+              </p>
+              <input type="text" name="groupingName" id="id_grouping" value="NFL">
+            </div>
+            <div>
+              <p>
+                <label for="id_city"> City: </label>
+              </p>
+              <input type="text" name="city" id="id_city" value="East Rutherford">
+            </div>
+            <div>
+              <p>
+                <label for="id_team"> Team: </label>
+              </p>
+              <input type="text" name="performerName" id="id_team" value="Giants">
+            </div>
+            <div>
+              <p>
+                <label for="id_venue"> Venue: </label>
+              </p>
+              <input type="text" name="venue" id="id_venue" value="Metlife Stadium">
+            </div>
+            <div>
+              <p>
+                <label for="id_date"> Date: </label>
+              </p>
+              <input type="text" name="date" id="id_date" value="2014-12-15">
+            </div>
+          <button type="submit" class="btn btn-default" id="search-button">Search</button>
+        </form>
+      </div>
+      {% endblock %}
+    </div>
+    <div class="col-md-9 content">
+      {% block content %}
+        <p> Some stuff shown in home page </p>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
