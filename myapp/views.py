@@ -7,12 +7,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 # from apps.account.forms import LoginForm, RegisterForm
 from  django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-
+from django.http import Http404 
 import logging
-import time
-import requests
-import json
-from config import CONFIG
+import stubhub
 
 # Create your views here.
 def login(request):
@@ -59,34 +56,6 @@ def index(request):
     register_form = UserCreationForm()
     return render(request, 'index.html', {'login_form': login_form, 'register_form': register_form})
 
-def getEvents(query):
-  base = 'https://api.stubhubsandbox.com'
-  resource = '/search/catalog/events/v2'
-  params = '?'
-  for key, value in query.iteritems():
-    if(key == 'date'):
-      currentDate = (time.strftime("%Y-%m-%d"))
-      params = params + 'date=' + currentDate+'T00:00TO'+value+'T00:00' + '&'
-    else:
-      params = params + key + '=' + value + '&'
-
-  headers = {
-    'Accept-Encoding'  : 'application/json',
-    'Authorization' : 'Bearer ' + CONFIG['stubhub']['application_token']
-  }
-  
-  req = requests.get(base+resource+params, headers=headers, verify=False)
-  if req.status_code == 200:
-    res = req.json()
-    if res['numFound'] == 0:
-      return {'error': 'No records found.'}
-    else:
-      return res
-  else:
-    return {'error': req.status_code}
-  
-  # return {'error': 'test'}
-
 @login_required
 def search(request):
   query = request.GET
@@ -94,5 +63,14 @@ def search(request):
     return render(request, 'search.html')
   else:
     logging.info(query)
-    result = getEvents(query)
+    result = stubhub.getEvents(query)
+    logging.info(result)
     return render(request, 'search.html', {'result': result})
+
+def tickets(request):
+  eventId = request.GET.get('eventId')
+  if not eventId:
+    return render(request, 'tickets.html', {'error': '404 not found'})
+  else:
+    result = stubhub.getTickets(eventId)
+    return render(request, 'tickets.html', {'result': result})

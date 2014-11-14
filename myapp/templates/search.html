@@ -10,27 +10,12 @@
   {% if result %}
     {% if result.error %}
       <p>{{ result.error }}</p>
-    {% elif result.events %}
+    {% elif result.eventlist %}
       <div class="results">
-        {% for event in result.events %}
-          <div id={{ event.id }}>
-            {% with event.id|stringformat:"s" as str_id %}
-              <a class="event-title" data-toggle="modal" data-target={{ "#detail"|add:str_id }}>{{ event.title }}</a>
-              <div class="modal fade" id={{ "detail"|add:str_id }} tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" id="eventModalLabel">{{ event.title }}</h4>
-                      <div>
-                        {% for key, value in event.iteritems %}
-                          <p>{{key}} : {{value}} </p>
-                        {% endfor %}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {% for id, title in result.eventlist.items %}
+          <div>
+            {% with id|stringformat:"s" as str_id %}
+              <a class="event-title" href={{ "/tickets?eventId="|add:str_id }}>{{ title }}</a>
             {% endwith %}
           </div>
         {% endfor %}

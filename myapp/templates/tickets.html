@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if error %}
+  <p>{{ error }}</p>
+{% endif %}
+{% if result %}
+<div class="row">
+  <div class="col-md-10">
+    <table class="table table-condensed table-hover">
+      <caption>Optional table caption</caption>
+      <thead>
+        <tr>
+          <th>seatNumbers</th>
+          <th>totalCost</th>
+          <th>zoneId</th>
+          <th>row</th>
+          <th>sectionId</th>
+          <th>zoneName</th>
+          <th>sectionName</th>
+          <th>faceValue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in result %}
+          <tr>
+            <td>{{ ticket.seatNumbers }}</td>
+            <td>{{ ticket.totalCost }}</td>
+            <td>{{ ticket.zoneId }}</td>
+            <td>{{ ticket.row }}</td>
+            <td>{{ ticket.sectionId }}</td>
+            <td>{{ ticket.zoneName }}</td>
+            <td>{{ ticket.sectionName }}</td>
+            <td>{{ ticket.faceValue }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2">
+    <p> User inputs </p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

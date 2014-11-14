@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^register$', 'myapp.views.register', name='register'),
     url(r'^logout$', logout, kwargs={'next_page':'/'}, name="logout"),
     url(r'^search', 'myapp.views.search', name='search'),
+    url(r'^tickets', 'myapp.views.tickets', name='tickets'),
     # url(r'^admin/', include(admin.site.urls)),
 )
