@@ -2,6 +2,8 @@ import time
 import requests
 import json
 from config import CONFIG
+import logging
+from models import Event, Ticket
 
 def api_call(call,params):
   """
@@ -46,19 +48,51 @@ def getEvents(query):
     else:
       eventlist = {}
       for event in result['events']:
+        e = Event.objects.filter(id=event['id'])
+        if not e:
+          e = Event(id=event['id'], title=event['title'], venue=event['venue']['name'], 
+            performer=event['performers'][0]['name'], grouping=event['groupings'][0]['name'])
+          e.save()
         eventlist[event['id']] = event['title']
       return {'eventlist': eventlist}  
   # return {'error': 'test'}
 
-def getTickets(eventid):
+def getTickets(eventId):
   resource = '/search/inventory/v1'
-  params = '?eventid={number}&rows={rows}'.format(**{'number': eventid, 'rows': 1000000})
+  params = '?eventId={number}&rows={rows}'.format(**{'number': eventId, 'rows': 1000000})
   
   result = api_call(resource,params)
   if result.get('error'):
     return result
   else:
+    logging.info(result['totalListings'])
+    logging.info(result['rows'])
+    logging.info(result['totalTickets'])
     if result.get('listing'):
+      e = Event.objects.get(id=eventId)
+      tickets = e.ticket_set.all()
+      ticketIds = tuple(t.id for t in tickets)
+      listingIds = tuple(t['listingId'] for t in result['listing'])
+      # soldTickets = e.soldticket_set.all()
+      for ticket in tickets:
+        if ticket.id not in listingIds:
+          logging.info("found missing entry!")
+          logging.info(ticket.id)
+          Ticket.objects.filter(id=ticket.id).delete()
+          t = SoldTicket(id=ticket['listingId'], event=e, quantity=ticket['quantity'],
+                    zoneId=ticket['zoneId'], zoneName=ticket['zoneName'], sectionId=ticket['sectionId'], sectionName=ticket['sectionName'],
+                    row=ticket['row'], seatNumbers=ticket['seatNumbers'], currentPrice=ticket['currentPrice']['amount'])
+          t.save()
+
+      for ticket in result['listing']:
+        if ticket['listingId'] not in ticketIds:
+          t = Ticket(id=ticket['listingId'], event=e, quantity=ticket['quantity'],
+                    zoneId=ticket['zoneId'], zoneName=ticket['zoneName'], sectionId=ticket['sectionId'], sectionName=ticket['sectionName'],
+                    row=ticket['row'], seatNumbers=ticket['seatNumbers'], currentPrice=ticket['currentPrice']['amount'])
+          t.save()
+        # else:
+        #   check if quantity changes
+      # logging.info(result['listing'])
       return result['listing']
     else:
       return {'error': 'unknown error'}

@@ -1,0 +1,42 @@
+div#ticket-table-wrap {
+  margin-right: 20px;
+  height: 510px;
+  display: inline-block;
+  overflow-y: auto;
+}
+
+div#price-bar {
+  background-color: #ccf;
+  border-radius: 7px;
+}
+
+div#price-title {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+div#price-form-wrap {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+#price-form input {
+  width: 100%;
+}
+
+#price-form div {
+  margin-bottom: 10px;
+}
+
+#price-form p {
+  height: 10px;
+}
+
+#price-button {
+  float: right;
+  margin: 10px 0px;
+}
+
+#price-result {
+  margin-top: 100px;
+}

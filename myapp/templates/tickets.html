@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block stylesheet %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="/static/css/ticket.css">
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+  <script type="text/javascript" src="/static/js/tickets.js"></script>
+{% endblock %}
+
 {% block body %}
 {% if error %}
   <p>{{ error }}</p>
@@ -7,38 +20,72 @@
 {% if result %}
 <div class="row">
   <div class="col-md-10">
-    <table class="table table-condensed table-hover">
-      <caption>Optional table caption</caption>
-      <thead>
-        <tr>
-          <th>seatNumbers</th>
-          <th>totalCost</th>
-          <th>zoneId</th>
-          <th>row</th>
-          <th>sectionId</th>
-          <th>zoneName</th>
-          <th>sectionName</th>
-          <th>faceValue</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in result %}
+    <div id="ticket-table-wrap">
+      <table id="ticket-table" class="table table-condensed table-hover">
+        <caption>Active Listings:</caption>
+        <thead>
           <tr>
-            <td>{{ ticket.seatNumbers }}</td>
-            <td>{{ ticket.totalCost }}</td>
-            <td>{{ ticket.zoneId }}</td>
-            <td>{{ ticket.row }}</td>
-            <td>{{ ticket.sectionId }}</td>
-            <td>{{ ticket.zoneName }}</td>
-            <td>{{ ticket.sectionName }}</td>
-            <td>{{ ticket.faceValue }}</td>
+            <th>zoneName</th>
+            <th>sectionName</th>
+            <th>row</th>
+            <th>seatNumbers</th>
+            <th>quantity</th>
+            <th>currentPrice</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for ticket in result %}
+            <tr>
+              <td>{{ ticket.zoneName }}</td>
+              <td>{{ ticket.sectionName }}</td>
+              <td>{{ ticket.row }}</td>
+              <td>{{ ticket.seatNumbers }}</td>
+              <td>{{ ticket.quantity }}</td>
+              <td>{{ ticket.currentPrice.amount }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="col-md-2">
-    <p> User inputs </p>
+  <div class="col-md-2" id="price-bar">
+    <div id="price-title">
+      <p> Price Estimation: </p>
+    </div>
+    <div id="price-form-wrap">
+        <form id="price-form" action="{% url 'price' %}" method="get">
+          <input type="hidden" name="eventId" value={{ eventId }}>
+          <div>
+            <p>
+              <label for="id_sectionName"> Section: </label>
+            </p>
+            <input type="text" name="sectionName" id="id_sectionName">
+          </div>
+          <div>
+            <p>
+              <label for="id_row"> Row: </label>
+            </p>
+            <input type="text" name="row" id="id_row">
+          </div>
+          <div>
+            <p>
+              <label for="id_seatNumbers"> Seats: </label>
+            </p>
+            <input type="text" name="seatNumbers" id="id_seatNumbers">
+          </div>
+          <div>
+            <p>
+              <label for="id_facevalue"> Facevalue: </label>
+            </p>
+            <input type="text" name="facevalue" id="id_facevalue">
+          </div>
+        <button type="submit" class="btn btn-default" id="price-button">Calculate</button>
+      </form>
+    </div>
+    <div id="price-result">
+      <p> Estimated Price: </p>
+      <p align="right"><span id="estimated-price"> 10 </span> $</p>
+    </div>
   </div>
 </div>
 {% endif %}

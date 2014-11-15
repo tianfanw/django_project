@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^logout$', logout, kwargs={'next_page':'/'}, name="logout"),
     url(r'^search', 'myapp.views.search', name='search'),
     url(r'^tickets', 'myapp.views.tickets', name='tickets'),
+    url(r'^price', 'myapp.views.price', name='price'),
     # url(r'^admin/', include(admin.site.urls)),
 )

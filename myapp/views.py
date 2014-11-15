@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from  django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.http import Http404 
 import logging
+import json
+import time
 import stubhub
 
 # Create your views here.
@@ -73,4 +75,15 @@ def tickets(request):
     return render(request, 'tickets.html', {'error': '404 not found'})
   else:
     result = stubhub.getTickets(eventId)
-    return render(request, 'tickets.html', {'result': result})
+    # logging.info(result)
+    return render(request, 'tickets.html', {'eventId': eventId, 'result': result})
+
+def price(request):
+  query = request.GET
+  logging.info(query)
+  # query.eventId
+  # query.sectionName
+  # query.row
+  # query.seatNumbers
+  # time.sleep(1)
+  return HttpResponse(json.dumps({'price': 100.00}), content_type="application/json")
