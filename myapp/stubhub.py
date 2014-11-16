@@ -3,7 +3,7 @@ import requests
 import json
 from config import CONFIG
 import logging
-from models import Event, Ticket
+from models import Event, Ticket, SoldTicket
 
 def api_call(call,params):
   """
@@ -13,15 +13,17 @@ def api_call(call,params):
   # json_obj = login().json()
   # conn = json_obj
   # print conn['access_token']
-  # base = 'https://api.stubhub.com'
-  base = 'https://api.stubhubsandbox.com'
+  base = 'https://api.stubhub.com'
+  access_token = CONFIG['production']['application_token']
+  # base = 'https://api.stubhubsandbox.com'
+  # access_token = CONFIG['sandbox']['application_token']
   # base = 'https://api.stubhub.com{0}{1}' % (call, param)
-
+  
   headers = {
     'Accept-Encoding'  : 'application/json',
-    'Authorization' : 'Bearer '+ CONFIG['stubhub']['application_token']
+    'Authorization' : 'Bearer '+ access_token
   }
-  
+  logging.info(base+call+params)
   req = requests.get(base+call+params, headers=headers, verify=False)
   if req.status_code == 200:
     return req.json()
@@ -49,10 +51,20 @@ def getEvents(query):
       eventlist = {}
       for event in result['events']:
         e = Event.objects.filter(id=event['id'])
+        logging.info(event)
         if not e:
-          e = Event(id=event['id'], title=event['title'], venue=event['venue']['name'], 
-            performer=event['performers'][0]['name'], grouping=event['groupings'][0]['name'])
+          e = Event(id=event['id'])
+          e.title = event.get('title')
+          if event.get('venue'):
+            e.venue = event['venue'].get('name')
+          if event.get('groupings'):
+            e.grouping = event['groupings'][0].get('name')
+          if event.get('attributes'):
+            e.primary_performer = event['attributes'][0].get('value')
+            if len(event['attributes']) > 1:
+              e.secondary_performer = event['attributes'][1].get('value')
           e.save()
+
         eventlist[event['id']] = event['title']
       return {'eventlist': eventlist}  
   # return {'error': 'test'}
@@ -79,9 +91,9 @@ def getTickets(eventId):
           logging.info("found missing entry!")
           logging.info(ticket.id)
           Ticket.objects.filter(id=ticket.id).delete()
-          t = SoldTicket(id=ticket['listingId'], event=e, quantity=ticket['quantity'],
-                    zoneId=ticket['zoneId'], zoneName=ticket['zoneName'], sectionId=ticket['sectionId'], sectionName=ticket['sectionName'],
-                    row=ticket['row'], seatNumbers=ticket['seatNumbers'], currentPrice=ticket['currentPrice']['amount'])
+          t = SoldTicket(id=ticket.id, event=ticket.event, quantity=ticket.quantity,
+                    zoneId=ticket.zoneId, zoneName=ticket.zoneName, sectionId=ticket.sectionId, sectionName=ticket.sectionName,
+                    row=ticket.row, seatNumbers=ticket.seatNumbers, currentPrice=ticket.currentPrice)
           t.save()
 
       for ticket in result['listing']:

@@ -2,11 +2,12 @@ from django.db import models
 
 # Create your models here.
 class Event(models.Model):
-  id         = models.IntegerField(primary_key=True)
-  title      = models.CharField(max_length=200)
-  venue      = models.CharField(max_length=100)
-  performer  = models.CharField(max_length=200)
-  grouping   = models.CharField(max_length=100)
+  id = models.IntegerField(primary_key=True)
+  title = models.CharField(max_length=200,null=True)
+  venue = models.CharField(max_length=100,null=True)
+  primaryPerformer = models.CharField(max_length=200,null=True)
+  secondaryPerformer = models.CharField(max_length=200,null=True)
+  grouping = models.CharField(max_length=100,null=True)
 
 class Ticket(models.Model):
   id = models.IntegerField(primary_key=True)
