@@ -9,7 +9,7 @@ class Event(models.Model):
   secondaryPerformer = models.CharField(max_length=200,null=True)
   grouping = models.CharField(max_length=100,null=True)
 
-class Ticket(models.Model):
+class Listing(models.Model):
   id = models.IntegerField(primary_key=True)
   event = models.ForeignKey(Event)
   quantity = models.IntegerField()
@@ -19,16 +19,15 @@ class Ticket(models.Model):
   sectionName = models.CharField(max_length=200,null=True)
   row = models.CharField(max_length=200)
   seatNumbers = models.CharField(max_length=200)
-  currentPrice = models.FloatField()
+  currentPrice = models.FloatField(null=True)
 
 class SoldTicket(models.Model):
-  id = models.IntegerField(primary_key=True)
+  listingId = models.IntegerField()
   event = models.ForeignKey(Event)
-  quantity = models.IntegerField()
   zoneId = models.IntegerField(null=True)
   zoneName = models.CharField(max_length=200,null=True)
   sectionId = models.IntegerField(null=True)
   sectionName = models.CharField(max_length=200,null=True)
   row = models.CharField(max_length=200)
-  seatNumbers = models.CharField(max_length=200)
-  currentPrice = models.FloatField()
+  seatNumber = models.CharField(max_length=200,null=True)
+  currentPrice = models.FloatField(null=True)

@@ -1,0 +1,136 @@
+[
+    {
+        "deliveryFee": null, 
+        "seatNumbers": "7", 
+        "currentPrice": {
+            "currency": "USD", 
+            "amount": 20.0
+        }, 
+        "deliveryTypeList": [
+            5
+        ], 
+        "ticketSplit": "2", 
+        "totalCost": null, 
+        "listingId": 1120362937, 
+        "serviceFee": null, 
+        "splitVector": [
+            2
+        ], 
+        "zoneId": 7368, 
+        "score": null, 
+        "row": "10", 
+        "sectionId": 41951, 
+        "listingAttributeList": null, 
+        "sellerOwnInd": 0, 
+        "ticketClass": null, 
+        "splitOption": "0", 
+        "listingAttributeCategoryList": null, 
+        "zoneName": "Upper End Balcony", 
+        "sectionName": "Upper End Balcony 318", 
+        "dirtyTicketInd": false, 
+        "faceValue": null, 
+        "sellerSectionName": "Upper End Balcony 318", 
+        "quantity": 1
+    }, 
+    {
+        "deliveryFee": null, 
+        "seatNumbers": "11,12", 
+        "currentPrice": {
+            "currency": "USD", 
+            "amount": 21.97
+        }, 
+        "deliveryTypeList": [
+            2
+        ], 
+        "ticketSplit": "2", 
+        "totalCost": null, 
+        "listingId": 1124414072, 
+        "serviceFee": null, 
+        "splitVector": [
+            2
+        ], 
+        "zoneId": 7368, 
+        "score": null, 
+        "row": "10", 
+        "sectionId": 41952, 
+        "listingAttributeList": null, 
+        "sellerOwnInd": 0, 
+        "ticketClass": null, 
+        "splitOption": "1", 
+        "listingAttributeCategoryList": null, 
+        "zoneName": "Upper End Balcony", 
+        "sectionName": "Upper End Balcony 320", 
+        "dirtyTicketInd": false, 
+        "faceValue": null, 
+        "sellerSectionName": "320", 
+        "quantity": 2
+    }, 
+    {
+        "deliveryFee": null, 
+        "seatNumbers": "7,8", 
+        "currentPrice": {
+            "currency": "USD", 
+            "amount": 21.97
+        }, 
+        "deliveryTypeList": [
+            2
+        ], 
+        "ticketSplit": "1", 
+        "totalCost": null, 
+        "listingId": 1108289119, 
+        "serviceFee": null, 
+        "splitVector": [
+            2
+        ], 
+        "zoneId": 7368, 
+        "score": null, 
+        "row": "7", 
+        "sectionId": 41958, 
+        "listingAttributeList": null, 
+        "sellerOwnInd": 0, 
+        "ticketClass": null, 
+        "splitOption": "2", 
+        "listingAttributeCategoryList": null, 
+        "zoneName": "Upper End Balcony", 
+        "sectionName": "Upper End Balcony 362", 
+        "dirtyTicketInd": false, 
+        "faceValue": null, 
+        "sellerSectionName": "362", 
+        "quantity": 2
+    }, 
+    {
+        "deliveryFee": null, 
+        "seatNumbers": "7,8", 
+        "currentPrice": {
+            "currency": "USD", 
+            "amount": 21.97
+        }, 
+        "deliveryTypeList": [
+            2
+        ], 
+        "ticketSplit": "1", 
+        "totalCost": null, 
+        "listingId": 1108289096, 
+        "serviceFee": null, 
+        "splitVector": [
+            1, 
+            2, 
+            4
+        ], 
+        "zoneId": 7368, 
+        "score": null, 
+        "row": "12", 
+        "sectionId": 41953, 
+        "listingAttributeList": null, 
+        "sellerOwnInd": 0, 
+        "ticketClass": null, 
+        "splitOption": "2", 
+        "listingAttributeCategoryList": null, 
+        "zoneName": "Upper End Balcony", 
+        "sectionName": "Upper End Balcony 322", 
+        "dirtyTicketInd": false, 
+        "faceValue": null, 
+        "sellerSectionName": "322", 
+        "quantity": 2
+    }
+]
